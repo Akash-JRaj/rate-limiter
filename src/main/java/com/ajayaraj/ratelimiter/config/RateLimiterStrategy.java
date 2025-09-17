@@ -4,5 +4,6 @@ public enum RateLimiterStrategy {
     FIXED,
     SLIDING_LOG,
     SLIDING_COUNTER,
-    TOKEN_BUCKET
+    TOKEN_BUCKET,
+    LEAKY_BUCKET
 }
