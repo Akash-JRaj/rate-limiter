@@ -35,6 +35,6 @@ public class FixedWindowRateLimiter implements RateLimiter {
             throw new RateLimitExceededException("Too many requests!");
         }
 
-        return current <= LIMIT;
+        return true;
     }
 }

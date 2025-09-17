@@ -1,5 +1,6 @@
 package com.ajayaraj.ratelimiter.service;
 
+import com.ajayaraj.ratelimiter.exception.RateLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -39,8 +40,9 @@ public class SlidingWindowCounterRateLimiter implements RateLimiter{
 
             return true;
         }
-
-        return false;
+        else {
+            throw new RateLimitExceededException("Too many requests!");
+        }
     }
 
     public int getCount(String key) {
