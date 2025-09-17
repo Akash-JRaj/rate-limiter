@@ -1,5 +1,6 @@
 package com.ajayaraj.ratelimiter.service;
 
+import com.ajayaraj.ratelimiter.exception.RateLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,10 @@ public class FixedWindowRateLimiter implements RateLimiter {
             stringRedisTemplate.expire(key, Duration.ofSeconds(WINDOW_SIZE));
         }
 
-        return current <= LIMIT;
+        if(current > LIMIT) {
+            throw new RateLimitExceededException("Too many requests!");
+        }
+
+        return true;
     }
 }

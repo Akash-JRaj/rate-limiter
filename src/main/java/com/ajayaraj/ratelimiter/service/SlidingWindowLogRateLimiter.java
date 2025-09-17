@@ -1,5 +1,6 @@
 package com.ajayaraj.ratelimiter.service;
 
+import com.ajayaraj.ratelimiter.exception.RateLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class SlidingWindowLogRateLimiter implements RateLimiter{
         Long count = redisTemplate.opsForZSet().zCard(key);
 
         if(count != null && count >= LIMIT) {
-            return false;
+            throw new RateLimitExceededException("Too many requests!");
         }
 
         redisTemplate.opsForZSet().add(key, String.valueOf(now), now);
