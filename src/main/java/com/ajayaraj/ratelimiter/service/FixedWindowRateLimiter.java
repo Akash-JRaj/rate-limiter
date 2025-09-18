@@ -23,8 +23,6 @@ public class FixedWindowRateLimiter implements RateLimiter {
         long windowStart = Instant.now().getEpochSecond() / WINDOW_SIZE;
         String key = "rate_limit:" + clientId + ":" + windowStart;
 
-        System.out.println(key);
-
         Long current = stringRedisTemplate.opsForValue().increment(key);
 
         if(current == 1) {
