@@ -42,3 +42,4 @@ It uses **Redis** for distributed request tracking, is fully containerized with 
   - Start a Redis container
   - Start the Rate Limiter container (Spring Boot app)
 
+Once running open http://localhost:8080/swagger-ui.html
